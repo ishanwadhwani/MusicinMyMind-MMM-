@@ -24,8 +24,8 @@ export default function CourseListItem({ course }) {
         <Text style={{ padding: 1, fontWeight: "bold", fontSize: 15 }}>
           {course.name}
         </Text>
-        <Text>{course?.vendor}</Text>
-        <Text>{course?.address}</Text>
+        <Text style={{ padding: 1, fontWeight: "bold", fontSize: 15, marginTop: 5 }}>{course?.vendor}</Text>
+        {/* <Text>{course?.address}</Text> */}
         <View>
             {/* <View style={{ display: "flex", flexDirection: "row" }}>
               <Text
@@ -38,7 +38,7 @@ export default function CourseListItem({ course }) {
               </Text>
             </View> */}
             <Text
-              style={{ color: color.primary, fontSize: 15, fontWeight: "bold" }}
+              style={{ color: color.primary, fontSize: 15, fontWeight: "bold", marginTop: 10 }}
             >
               {" "}
               ₹{course?.pricing}.00 /month

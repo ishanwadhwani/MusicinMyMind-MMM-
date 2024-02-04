@@ -62,7 +62,7 @@ const getCourseList = async () => {
 const getCourseListByCategory = async (category) => {
   const query = gql`
   query getCourseList {
-    courses(where: {category: {name: "`+category+`"}}) {
+    courses(where: {category: {name: "`+ category + `"}}) {
       id
       name
       link
@@ -84,9 +84,34 @@ const getCourseListByCategory = async (category) => {
   return data
 }
 
-export default {
+const createBooking = async (data) => {
+  const mutationQuery = gql`
+  mutation createBooking {
+    createBooking(
+      data: {
+        bookingStatus: Booked, 
+        business: {
+          connect: {id: "`+data.businessId+`"}},
+        date: "`+data.date+`", 
+        time: "`+data.time+`", 
+        userEmail: "`+data.userEmail+`", 
+        userName: "`+data.userName+`", }
+    ) {
+      id
+    }
+    publishManyBookings(to: PUBLISHED) {
+      count
+  }
+}
+`
+  const result = await request(MASTER_URL, mutationQuery)
+  return result
+}
+
+  export default {
     getSlider,
     getCategory,
     getCourseList,
     getCourseListByCategory,
-}
+    createBooking,
+  }
