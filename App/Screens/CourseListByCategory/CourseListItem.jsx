@@ -12,7 +12,7 @@ import { useNavigation } from "@react-navigation/native";
 
 import color from "../../utils/color";
 
-export default function CourseListItem({ course }) {
+export default function CourseListItem({ course, booking}) {
   const navigation = useNavigation();
   return (
     <TouchableOpacity
@@ -44,6 +44,12 @@ export default function CourseListItem({ course }) {
               ₹{course?.pricing}.00 /month
             </Text>
           </View>
+          {booking?.id?
+            <View>
+              <Text>{booking?.bookingStatus}</Text>
+              <Text>{booking?.date}</Text>
+              <Text>{booking?.time}</Text>
+            </View>:null}
       </View>
     </TouchableOpacity>
   );
