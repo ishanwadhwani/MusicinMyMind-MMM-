@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   Linking,
   FlatList,
+  Modal,
 } from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import React, { useEffect, useState } from "react";
@@ -17,10 +18,12 @@ import GlobalAPI from "../../utils/GlobalAPI";
 import color from "../../utils/color";
 import Heading from "../../Components/Heading";
 import CoursePhotos from "./CoursePhotos";
+import BookingModal from "./BookingModal";
 
 export default function CourseDetailScreen() {
   const param = useRoute().params;
   const [course, setCourse] = useState(param.course);
+  const [showModal, setShowModal] = useState(false);
   const [isReadmore, setIsReadmore] = useState(false);
   const navigation = useNavigation();
 
@@ -30,9 +33,8 @@ export default function CourseDetailScreen() {
 
   return (
     course && (
-      <View style={{    backgroundColor: color.white,
-      }}>
-        <ScrollView style={{ marginTop: 35, height: '89%' }}>
+      <View style={{ backgroundColor: color.white }}>
+        <ScrollView style={{ marginTop: 35, height: "89%" }}>
           <TouchableOpacity
             style={styles.backbtn}
             onPress={() => navigation.goBack()}
@@ -44,7 +46,9 @@ export default function CourseDetailScreen() {
             style={{ width: "100%", height: 300 }}
           />
           <View style={{ padding: 20 }}>
-            <Text style={{ fontSize: 25, fontWeight: "bold", marginBottom: 10 }}>
+            <Text
+              style={{ fontSize: 25, fontWeight: "bold", marginBottom: 10 }}
+            >
               {course?.name}
             </Text>
             <View style={styles.subContainer}>
@@ -70,7 +74,11 @@ export default function CourseDetailScreen() {
             <View style={styles.pricing}>
               <View style={{ display: "flex", flexDirection: "row" }}>
                 <Text
-                  style={{ color: color.black, fontSize: 20, fontWeight: "bold" }}
+                  style={{
+                    color: color.black,
+                    fontSize: 20,
+                    fontWeight: "bold",
+                  }}
                 >
                   Condition -{" "}
                 </Text>
@@ -79,7 +87,11 @@ export default function CourseDetailScreen() {
                 </Text>
               </View>
               <Text
-                style={{ color: color.primary, fontSize: 18, fontWeight: "bold" }}
+                style={{
+                  color: color.primary,
+                  fontSize: 18,
+                  fontWeight: "bold",
+                }}
               >
                 {" "}
                 ₹{course?.pricing}.00 /month
@@ -129,14 +141,40 @@ export default function CourseDetailScreen() {
           </View>
           <CoursePhotos course={course} />
         </ScrollView>
-        <View style={{display: 'flex', flexDirection: 'row', gap: 8, margin: 5 }}>
+        <View
+          style={{ display: "flex", flexDirection: "row", gap: 8, margin: 5 }}
+        >
           <TouchableOpacity style={styles.msgbtn}>
-            <Text style={{textAlign: "center", color: color.primary, fontSize: 18}}>Message</Text>
+            <Text
+              style={{
+                textAlign: "center",
+                color: color.primary,
+                fontSize: 18,
+              }}
+            >
+              Message
+            </Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.bookingbtn}>
-            <Text style={{textAlign: "center", color: color.primary, fontSize: 18}}>Book Now</Text>
+          <TouchableOpacity style={styles.bookingbtn}
+            onPress={() => setShowModal(true)}>
+            <Text
+              style={{
+                textAlign: "center",
+                color: color.primary,
+                fontSize: 18,
+              }}
+            >
+              Book Now
+            </Text>
           </TouchableOpacity>
         </View>
+
+        {/* Booking Modal */}
+        <Modal animationType="silde" visible={showModal}>
+          <BookingModal
+            businessId={course.id} 
+            hideModal={() => setShowModal(false)}/>
+        </Modal>
       </View>
     )
   );

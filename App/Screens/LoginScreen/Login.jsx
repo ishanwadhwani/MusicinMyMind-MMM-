@@ -38,7 +38,7 @@ export default function Login() {
             Discover, rent, and create melodies with our vast collection of high-quality instruments.        
         </Text>
         <TouchableOpacity style={styles.button} onPress={onPress}>
-            <Text style={{textAlign:'center', fontSize:18, color:color.black}}>
+            <Text style={{textAlign:'center', fontSize:18, color:color.white}}>
                 Let's get started!
             </Text>
         </TouchableOpacity>
